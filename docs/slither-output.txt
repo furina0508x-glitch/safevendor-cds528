@@ -1,0 +1,12 @@
+'npx hardhat clean' running (wd: /Users/furina/Documents/Codex/2026-11-11/wo)
+'npx hardhat clean --global' running (wd: /Users/furina/Documents/Codex/2026-11-11/wo)
+Problem deserializing hardhat configuration, using defaults: Expecting value: line 1 column 2 (char 1)
+'npx hardhat compile --force' running (wd: /Users/furina/Documents/Codex/2026-11-11/wo)
+INFO:Detectors:
+Low level call in MultiSigTreasury.executeTransaction(uint256) (contracts/MultiSigTreasury.sol#124-141):
+	- (success,None) = transaction.to.call{value: transaction.value}(transaction.data) (contracts/MultiSigTreasury.sol#137-139)
+Low level call in TokenVendor.buyTokens(uint256) (contracts/TokenVendor.sol#59-93):
+	- (treasuryOk,None) = treasury.call{value: netEthPaid}() (contracts/TokenVendor.sol#76)
+	- (refundOk,None) = msg.sender.call{value: refund}() (contracts/TokenVendor.sol#80)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#low-level-calls
+INFO:Slither:. analyzed (18 contracts with 100 detectors), 2 result(s) found

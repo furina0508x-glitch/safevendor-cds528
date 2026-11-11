@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="SafeVendor fixed-price token sale with direct settlement into a multisig treasury."
+    />
+    <title>SafeVendor</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="site-header">
+        <a class="brand" href="#top" aria-label="SafeVendor home">
+          <span class="brand-mark" aria-hidden="true">
+            <i data-lucide="shield-check"></i>
+          </span>
+          <span>
+            <strong>SafeVendor</strong>
+            <small>Programmable sale settlement</small>
+          </span>
+        </a>
+
+        <nav class="header-actions" aria-label="Account">
+          <span class="network-chip" id="networkChip">
+            <i data-lucide="circle-dot"></i>
+            <span id="networkLabel">Sepolia</span>
+          </span>
+          <button class="button button-primary" id="connectButton" type="button">
+            <i data-lucide="wallet"></i>
+            <span>Connect wallet</span>
+          </button>
+        </nav>
+      </header>
+
+      <main id="top">
+        <section class="intro-band" aria-labelledby="pageTitle">
+          <div class="intro-copy">
+            <p class="eyebrow">Fixed-price ERC-20 sale</p>
+            <h1 id="pageTitle">
+              Sale proceeds settle directly in shared custody
+            </h1>
+            <p class="lede">
+              Buy SVT at a fixed rate while every sale payment routes to a
+              2-of-3 treasury that no single owner can move.
+            </p>
+          </div>
+
+          <div class="flow-rail" aria-label="Settlement architecture">
+            <div class="flow-step">
+              <span class="step-index">01</span>
+              <i data-lucide="wallet"></i>
+              <div>
+                <strong>Buyer</strong>
+                <span>Sends ETH</span>
+              </div>
+            </div>
+            <i class="flow-arrow" data-lucide="arrow-right"></i>
+            <div class="flow-step">
+              <span class="step-index">02</span>
+              <i data-lucide="coins"></i>
+              <div>
+                <strong>Vendor</strong>
+                <span>Prices and delivers</span>
+              </div>
+            </div>
+            <i class="flow-arrow" data-lucide="arrow-right"></i>
+            <div class="flow-step">
+              <span class="step-index">03</span>
+              <i data-lucide="landmark"></i>
+              <div>
+                <strong>Treasury</strong>
+                <span>2-of-3 custody</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="status-strip" aria-label="Contract status">
+          <div>
+            <span class="status-label">Network</span>
+            <strong id="statusNetwork">Not configured</strong>
+          </div>
+          <div>
+            <span class="status-label">Treasury balance</span>
+            <strong id="treasuryBalance">0.0000 ETH</strong>
+          </div>
+          <div>
+            <span class="status-label">Sale inventory</span>
+            <strong id="vendorInventory">0 SVT</strong>
+          </div>
+          <div>
+            <span class="status-label">Approval threshold</span>
+            <strong id="thresholdStatus">2 of 3</strong>
+          </div>
+        </section>
+
+        <section class="workspace-grid" id="sale">
+          <div class="sale-panel">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">Primary market</p>
+                <h2>Buy SVT</h2>
+              </div>
+              <button class="icon-button" id="refreshButton" type="button" title="Refresh chain data">
+                <i data-lucide="refresh-cw"></i>
+              </button>
+            </div>
+
+            <div class="rate-line">
+              <span>Rate</span>
+              <strong><span id="pricePerToken">0.0001</span> ETH per SVT</strong>
+            </div>
+
+            <form id="buyForm" class="trade-form">
+              <label class="field">
+                <span>You pay</span>
+                <span class="field-control">
+                  <input
+                    id="ethAmount"
+                    type="number"
+                    min="0"
+                    step="0.0001"
+                    value="0.01"
+                    inputmode="decimal"
+                  />
+                  <b>ETH</b>
+                </span>
+              </label>
+
+              <div class="quote-readout">
+                <span>Estimated output</span>
+                <strong><span id="quoteOutput">100</span> SVT</strong>
+              </div>
+
+              <label class="field field-compact">
+                <span>Minimum received</span>
+                <span class="field-control">
+                  <input
+                    id="minTokensOut"
+                    type="number"
+                    min="0"
+                    step="0.000001"
+                    value="99.5"
+                    inputmode="decimal"
+                  />
+                  <b>SVT</b>
+                </span>
+              </label>
+
+              <button class="button button-buy" id="buyButton" type="submit">
+                <span>Buy SVT</span>
+                <i data-lucide="arrow-right"></i>
+              </button>
+            </form>
+            <p class="form-note">
+              Payment is transferred to the treasury in the same transaction.
+            </p>
+          </div>
+
+          <aside class="sale-aside">
+            <div class="aside-block">
+              <p class="section-kicker">Your position</p>
+              <div class="metric-large">
+                <span id="walletBalance">0</span>
+                <small>SVT</small>
+              </div>
+              <p id="walletStatus">Connect a wallet to view balances.</p>
+            </div>
+
+            <div class="aside-block">
+              <p class="section-kicker">Sale controls</p>
+              <dl class="control-list">
+                <div>
+                  <dt>Supply</dt>
+                  <dd id="totalSupply">1,000,000 SVT</dd>
+                </div>
+                <div>
+                  <dt>Pricing</dt>
+                  <dd>Immutable</dd>
+                </div>
+                <div>
+                  <dt>Proceeds</dt>
+                  <dd>Direct to treasury</dd>
+                </div>
+              </dl>
+            </div>
+          </aside>
+        </section>
+
+        <section class="treasury-section" id="treasury">
+          <div class="section-heading section-heading-wide">
+            <div>
+              <p class="section-kicker">Shared custody</p>
+              <h2>Treasury operations</h2>
+            </div>
+            <div class="owner-summary">
+              <i data-lucide="shield-check"></i>
+              <span><strong>2 of 3</strong> confirmations required</span>
+            </div>
+          </div>
+
+          <div class="treasury-grid">
+            <div class="proposal-panel">
+              <h3>New transfer</h3>
+              <form id="treasuryForm" class="treasury-form">
+                <label class="field">
+                  <span>Recipient</span>
+                  <span class="field-control">
+                    <input
+                      id="recipient"
+                      type="text"
+                      placeholder="0x..."
+                      autocomplete="off"
+                      spellcheck="false"
+                    />
+                  </span>
+                </label>
+                <label class="field">
+                  <span>Amount</span>
+                  <span class="field-control">
+                    <input
+                      id="treasuryAmount"
+                      type="number"
+                      min="0"
+                      step="0.0001"
+                      placeholder="0.001"
+                      inputmode="decimal"
+                    />
+                    <b>ETH</b>
+                  </span>
+                </label>
+                <button class="button button-secondary" id="proposeButton" type="submit">
+                  <i data-lucide="send"></i>
+                  <span>Submit proposal</span>
+                </button>
+              </form>
+              <p class="form-note">
+                Submission records the first confirmation from your owner address.
+              </p>
+            </div>
+
+            <div class="transactions-panel">
+              <div class="transactions-heading">
+                <h3>Recent proposals</h3>
+                <span class="live-label"><i></i> Sepolia</span>
+              </div>
+              <div id="transactions" class="transaction-list">
+                <div class="empty-state">
+                  Connect a wallet and refresh to load treasury proposals.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="owners-band">
+            <div>
+              <p class="section-kicker">Owner set</p>
+              <h3>Three fixed addresses</h3>
+            </div>
+            <div class="owner-list" id="ownerList"></div>
+          </div>
+        </section>
+
+        <section class="registry-section" id="contracts">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Deployment registry</p>
+              <h2>Sepolia contracts</h2>
+            </div>
+          </div>
+
+          <div class="contract-table-wrap">
+            <table class="contract-table">
+              <thead>
+                <tr>
+                  <th>Contract</th>
+                  <th>Address</th>
+                  <th>Explorer</th>
+                </tr>
+              </thead>
+              <tbody id="contractRows">
+                <tr>
+                  <td>SafeVendorToken</td>
+                  <td class="mono">Not deployed</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>MultiSigTreasury</td>
+                  <td class="mono">Not deployed</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>TokenVendor</td>
+                  <td class="mono">Not deployed</td>
+                  <td>-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <span>SafeVendor / CDS528 Group Project</span>
+        <span>Sepolia test assets only. No monetary value.</span>
+      </footer>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

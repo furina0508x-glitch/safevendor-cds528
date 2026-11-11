@@ -1,0 +1,43 @@
+{
+  "network": "sepolia",
+  "chainId": "11155111",
+  "deployedAt": "2026-11-11T08:50:13.266Z",
+  "deployer": "0xF8cf8A0bDdfeFD411D0Dc146a7ba1D5B5E8F2143",
+  "token": {
+    "address": "0x69D7f801AA1EB37321B6F7C1843E380c76C4deeA",
+    "deploymentHash": "0x230cc3be5f5ead3886ce1ff5ccdc842cbe4831ce455db8ca9715cca849ab34a7",
+    "deploymentBlock": 12110671
+  },
+  "treasury": {
+    "address": "0x53C6F389B8773C9C74b275BCb2B55ba4C119F13d",
+    "owners": [
+      "0xF8cf8A0bDdfeFD411D0Dc146a7ba1D5B5E8F2143",
+      "0xAD8C645384858B50b988BFEbb0c1DB6f996C5A76",
+      "0x50b74325eadd91918d9f4083635d9bB570dC9C56"
+    ],
+    "threshold": 2,
+    "deploymentHash": "0xa1c8b8abc284f6849720e9973048c1ad111610139ccbfcf161af242291dbad4e",
+    "deploymentBlock": 12110672
+  },
+  "vendor": {
+    "address": "0x6030d8D8674f96F3e8BF9dCe5AF74b65247d519A",
+    "pricePerToken": "100000000000000",
+    "tokenAddress": "0x69D7f801AA1EB37321B6F7C1843E380c76C4deeA",
+    "treasuryAddress": "0x53C6F389B8773C9C74b275BCb2B55ba4C119F13d",
+    "deploymentHash": "0xfdf11edf7d8f415c5635191f043155b69b456644599b438b074d50a11dfa8f7e",
+    "deploymentBlock": 12110673,
+    "inventoryFundingHash": "0xaf123d0dfe586e4ba416a3161e5148efb225901cbd144dfc079061ed159f73d6"
+  },
+  "demo": {
+    "buyer": "0xF8cf8A0bDdfeFD411D0Dc146a7ba1D5B5E8F2143",
+    "purchaseEth": "0.01",
+    "purchaseTokens": "100.0",
+    "purchaseTx": "0xbe98f58bb0fb55dba6283720c9a12fca8e8d545e36814cd3c66924ba9a3da29a",
+    "proposalId": 0,
+    "proposalValueEth": "0.001",
+    "submitTx": "0x019e15f677db6b42d5e641ee5a84f0c4b2f45b4f825d1657c77122fdcd5c11fa",
+    "confirmTx": "0xb573584d4eabc192fdb8fbfba55c290412f0ebf68cee1bcc1a353095cc5ef6fe",
+    "executeTx": "0xcefee4c9350b8007c146db0f5587ccf5be3424143509c1519762174f15f8775e",
+    "treasuryBalanceAfterEth": "0.009"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "safevendor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Trust-minimized ERC-20 sale with direct settlement into a 2-of-3 multisig treasury",
+  "license": "MIT",
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "coverage": "hardhat coverage",
+    "lint:sol": "solhint 'contracts/**/*.sol'",
+    "deploy": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:local": "hardhat run scripts/deploy.js --network hardhat",
+    "verify": "hardhat run scripts/verify.js --network sepolia",
+    "accounts": "hardhat run scripts/accounts.js",
+    "demo:fund": "hardhat run scripts/fund-owner2.js --network sepolia",
+    "demo:purchase": "hardhat run scripts/demo-purchase.js --network sepolia",
+    "demo:flow": "hardhat run scripts/demo-flow.js --network sepolia",
+    "demo:execute": "hardhat run scripts/execute-pending.js --network sepolia",
+    "frontend:dev": "vite --config frontend/vite.config.js",
+    "frontend:build": "vite build --config frontend/vite.config.js",
+    "frontend:preview": "vite preview --config frontend/vite.config.js"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "5.4.0",
+    "dotenv": "17.2.3",
+    "ethers": "6.15.0",
+    "lucide": "0.468.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "5.0.0",
+    "hardhat": "2.26.3",
+    "hardhat-gas-reporter": "2.3.0",
+    "solhint": "6.0.0",
+    "solidity-coverage": "0.8.16",
+    "vite": "7.1.7"
+  }
+}
